@@ -1,16 +1,16 @@
 {
   "development": {
-    "database": "express_auth_development",
+    "database": "flight_search_development",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "test": {
-    "database": "express_auth_test",
+    "database": "flight_search_test",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "production": {
-    "database": "express_auth_production",
+    "database": "flight_search_production",
     "host": "127.0.0.1",
     "dialect": "postgres"
   }
