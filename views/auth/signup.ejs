@@ -7,9 +7,10 @@
   <input id="new-last-name" type="text" name="lastName">
 </br>
   <!-- country codes (ISO 3166) and Dial codes. -->
-<select name="countryCode" id="">
-	<option data-countryCode="GB" value="44" Selected>UK (+44)</option>
-	<option data-countryCode="US" value="1">USA (+1)</option>
+  <label for="countryCode">Country Code</label>
+<select name="countryCode" id="countryCode">
+	<option data-countryCode="US" value="1" Selected>USA (+1)</option>
+	<option data-countryCode="GB" value="44" >UK (+44)</option>
 	<optgroup label="Other countries">
 		<option data-countryCode="DZ" value="213">Algeria (+213)</option>
 		<option data-countryCode="AD" value="376">Andorra (+376)</option>
@@ -235,6 +236,9 @@
 </br>
   <label for="new-password">Password</label>
   <input id="new-password" type="password" name="password">
+</br>
+  <label for="confirm-password">Confirm Password</label>
+  <input id="confirm-password" type="password" name="confirmPassword">
 </br>
   <input type="submit" value="Sign up">
 </form>
