@@ -1,4 +1,5 @@
 'use strict';
+const bcrypt = require('bcrypt');
 const {
   Model
 } = require('sequelize');
@@ -50,17 +51,21 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     countryCode: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       validate: {
-        len: [1,6],
-        msg: 'Country Code should between 1 to 6 numbers'
+        len: {
+          args: [1,6],
+          msg: 'Country Code should between 1 to 6 numbers'
+        }
       }
     },
     contactNo: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       validate: {
-        len: [10,10],
-        msg: 'Number must be 10 numbers'
+        len: {
+          args: [1,10],
+          msg: 'Number must be 10 numbers'
+        }
       }
     }
   }, {

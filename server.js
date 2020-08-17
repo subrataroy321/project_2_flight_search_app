@@ -4,6 +4,10 @@ const layouts = require('express-ejs-layouts');
 const app = express();
 const session = require('express-session');
 const SECRET_SESSION = process.env.SECRET_SESSION;
+const passport = require('./config/ppConfig');
+const flash = require('connect-flash');
+
+const isLoggedIn = require('./middleware/isLoggedIn')
 
 app.set('view engine', 'ejs');
 
@@ -18,11 +22,26 @@ app.use(session({
   saveUninitialized: true // saveUninitialized if we have a new session, we'll save it, therefore
 }))
 
-app.get('/', (req, res) => {
-  res.render('index');
+// initialize passport and run session as middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+// flash create temporary messages
+app.use(flash());
+
+// middleware to have our messages accessible for every view
+app.use((req,res,next)=> {
+  // before every route, we will attached our current user to res.local
+  res.locals.alerts = req.flash();
+  res.locals.currentUser = req.user;
+  next();
 });
 
-app.get('/profile', (req, res) => {
+app.get('/', (req, res) => {
+  res.render('index', {alerts: res.locals.alerts});
+});
+
+app.get('/profile', isLoggedIn, (req, res) => {
   res.render('profile');
 });
 

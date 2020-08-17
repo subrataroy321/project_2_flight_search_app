@@ -21,10 +21,10 @@ module.exports = {
         type: Sequelize.STRING
       },
       countryCode: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       contactNo: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,

@@ -11,8 +11,12 @@ describe('Creating a User', function() {
   it('should create successfully', function(done) {
     db.user.create({
       email: 'test@test.co',
-      name: 'Muttbuncher',
-      password: 'password'
+      firstName: 'Muttbuncher',
+      lastName: 'Peters',
+      countryCode: '1',
+      contactNo: '6786001234',
+      password: 'password',
+      confirmPassword: 'password'
     }).then(function() {
       done();
     }).catch(function(error) {
@@ -23,8 +27,12 @@ describe('Creating a User', function() {
   it('should throw an error on invalid email addresses', function(done) {
     db.user.create({
       email: 'test',
-      name: 'Brian',
-      password: 'password'
+      firstName: 'Brian',
+      lastName: 'lara',
+      countryCode: '1',
+      contactNo: '6786001234',
+      password: 'password',
+      confirmPassword: 'password'
     }).then(function(newUser) {
       done(newUser);
     }).catch(function(error) {
@@ -34,9 +42,13 @@ describe('Creating a User', function() {
 
   it('should throw an error on invalid name', function(done) {
     db.user.create({
-      email: 'test@test.co',
-      name: '',
-      password: 'password'
+      email: 'test',
+      firstName: '',
+      lastName: 'lara',
+      countryCode: '1',
+      contactNo: '6786001234',
+      password: 'password',
+      confirmPassword: 'password'
     }).then(function(newUser) {
       done(newUser);
     }).catch(function(error) {
@@ -47,8 +59,12 @@ describe('Creating a User', function() {
   it('should throw an error on invalid password', function(done) {
     db.user.create({
       email: 'test@test.co',
-      name: 'Brian',
-      password: 'short'
+      firstName: 'Brian',
+      lastName: 'lara',
+      countryCode: '1',
+      contactNo: '6786001234',
+      password: 'short',
+      confirmPassword: 'short'
     }).then(function(newUser) {
       done(newUser);
     }).catch(function(error) {
@@ -59,8 +75,12 @@ describe('Creating a User', function() {
   it('should hash the password before save', function(done) {
     db.user.create({
       email: 'test@test.co',
-      name: 'Muttbuncher',
-      password: 'password'
+      firstName: 'Muttbuncher',
+      lastName: 'Brain',
+      countryCode: '1',
+      contactNo: '6786001234',
+      password: 'password',
+      confirmPassword: 'password'
     }).then(function(newUser) {
       if (newUser.password === 'password') {
         done(newUser);

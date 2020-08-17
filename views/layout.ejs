@@ -7,17 +7,25 @@
     <link rel="stylesheet" href="/css/style.css">
   </head>
   <body>
+    <% include partials/alerts %> 
     <header>
+      <h1>Cheap Flight Search</h1>
       <nav>
-        <ul>
-          <li><a href="/auth/signup">Signup</a></li>
-          <li><a href="/auth/login">Login</a></li>
-          <li><a href="/auth/logout">Logout</a></li>
-          <li><a href="/profile">Profile</a></li>
-        </ul>
+        <div class="userList">
+          <ul>
+            <% if(!currentUser) { %>
+              <li><a href="/auth/signup">Signup</a></li>
+              <li><a href="/auth/login">Login</a></li>
+            <% } else { %> 
+              <li><a href="/auth/logout">Logout</a></li>
+              <li><a href="/profile">Profile</a></li>
+            <% } %> 
+          </ul>
+        </div>
       </nav>
     </header>
-    <h1>Authentication</h1>
+    
     <%- body %>
+    <script src="/script/script.js"></script>
   </body>
 </html>
