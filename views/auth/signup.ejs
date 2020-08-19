@@ -238,20 +238,25 @@
   <input id="new-password" type="password" name="password" required>
 </br>
   <label for="confirm-password">Confirm Password</label>
-  <input id="confirm-password" type="password" name="confirmPassword" oninput="check(this)" required>
+  <input id="confirm-password" type="password" name="confirmPassword" onkeyup="check(this)" required>
 
-<%// let newPassword = document.getElementbyId('new-password'); %>
-<%// let confirmPassword = document.getElementbyId('confirm-password'); %> 
-
-  <% function check(input) { %> 
-    <% if (password.value != confirmPassword.value) {  %> 
-		<% input.setCustomValidity('Password Must be Matching.');  %> 
-	<% } else {  %> 
-		<% // input is valid -- reset the error message %>  
-		<% input.setCustomValidity(''); %>  
-    <% } %>  
-<% } %> 
 
 </br>
   <input id="submit" type="submit" value="Sign up">
 </form>
+
+<script>
+let newPassword = document.getElementbyId('new-password'); 
+let confirmPassword = document.getElementbyId('confirm-password');
+ 
+
+// FUNCTION THAT CHECK MATCHING OF PASSWORD AND CONFIRM PASSWORD
+function check(input) {
+    if (newPassword.value != confirmPassword.value) { 
+		input.setCustomValidity('Password Must be Matching.'); 
+	} else { 
+		// input is valid -- reset the error message 
+		input.setCustomValidity(''); 
+    } 
+}
+</script>

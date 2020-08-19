@@ -4,8 +4,10 @@ const layouts = require('express-ejs-layouts');
 const app = express();
 const session = require('express-session');
 const SECRET_SESSION = process.env.SECRET_SESSION;
+const rapidapi_key = process.env.rapidapi_key;
 const passport = require('./config/ppConfig');
 const flash = require('connect-flash');
+const axios = require('axios');
 
 const isLoggedIn = require('./middleware/isLoggedIn')
 
@@ -37,7 +39,7 @@ app.use((req,res,next)=> {
   next();
 });
 
-app.get('/', (req, res) => {
+app.get('/', (req, res) => {     
   res.render('index', {alerts: res.locals.alerts});
 });
 
@@ -45,7 +47,15 @@ app.get('/profile', isLoggedIn, (req, res) => {
   res.render('profile');
 });
 
+app.get('/contact', (req, res) => {
+  res.render('contact');
+});
+app.get('/error', (req, res) => {
+  res.render('error');
+});
+
 app.use('/auth', require('./routes/auth'));
+app.use('/search', require('./routes/search'));
 
 
 const port = process.env.PORT || 3000;

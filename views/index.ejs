@@ -1,1 +1,111 @@
-<h2>Homepage</h2>
+<form action="/search" method="get">
+    <div class="tripType">
+        <input type="radio" value="oneway" id="oneway" name="tripType" checked> One Way
+        <input type="radio" value="return" id="return" name="tripType"> Return
+        <!-- <input type="radio" value="multicity" id="return" name="tripType"> Multicity -->
+    </div>
+
+    <!-- <div class="form-group">
+        <label for="originLocationCode" class="control-label">originLocationCode</label>
+        <input id="audestinationLocationCodecomplete" type="text" name="originLocationCode">
+    </div>
+    <div class="form-group">
+        <label for="originLocationCode" class="control-label">originLocationCode</label>
+        <input id="audestinationLocationCodecomplete" type="text" name="originLocationCode">
+        </br>
+    </div> -->
+
+    <!-- <div class="airports">
+      <form audestinationLocationCodecomplete="off" action="/action_page.php">
+        <div class="audestinationLocationCodecomplete" style="width:300px;">
+          <input id="form" type="text" name="originLocationCode" placeholder="originLocationCode">
+        </div>
+      </form>
+    </div> -->
+
+        <label for="originLocationCode">From</label>
+        <input type="text" name="originLocationCode" id="autocomplete-airport-1">
+        <label for="destinationLocationCode">  To</label>
+        <input type="text" name="destinationLocationCode" id="autocomplete-airport-2 options">
+  </br>
+        <label for="departureDate">Depart</label>
+        <input type="date" name="departureDate" id="departureDate">
+        <label for="returnDate">  Return</label>
+        <input type="date" name="returnDate" id="returnDate">
+    </br>
+    <label for="travelClass">Cabin class</label>
+    <select name="travelClass" id="cabinClass">
+            <option value="ECONOMY" Selected>Economy</option>
+            <option value="PREMIUM_ECONOMY" >Premium Economy</option>
+            <option value="BUSINESS">Business Class</option>
+            <option value="FIRST">First Class</option>
+    </select>
+    </br>
+    <label for="adults">Adults</label>
+    <select name="adults" id="adults">
+            <option value="1" Selected>1</option>
+            <option value="2" >2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6" >6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+    </select>
+    <label for="children">Children</label>
+    <select name="children" id="children">
+            <option value="0" Selected>0</option>
+            <option value="1">1</option>
+            <option value="2" >2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6" >6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+    </select>
+    <label for="infants">Infants</label>
+    <select name="infants" id="infants">
+            <option value="0" Selected>0</option>
+            <option value="1" >1</option>
+            <option value="2" >2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+    </select>
+    </br>
+    <button type="submit">Search Flights →</button>
+</form>
+
+
+<script src="https://cdn.jsdelivr.net/npm/airport-autocomplete-js@latest/dist/index.browser.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.1/lodash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="https://unpkg.com/fuse.js@2.5.0/src/fuse.min.js"></script>
+<script src="https://screenfeedcontent.blob.core.windows.net/html/airports.js"></script>
+
+<script>
+  const options = {
+  fuse_options : {
+      shouldSort: true,
+      threshold: 0.4,
+      maxPatternLength: 32,
+      keys: [{
+          name: "IATA",
+          weight: 0.6
+        },
+        {
+          name: "name",
+          weight: 0.4
+        },
+        {
+          name: "city",
+          weight: 0.2
+        }
+      ]
+    }
+};
+</script>
