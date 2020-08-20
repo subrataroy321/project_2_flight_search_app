@@ -1,0 +1,22 @@
+<header>
+
+    <nav class="navbar navbar-light" >
+        <a class="navbar-brand" href="/" style="font-size:35px;">
+          <img src="/assets/img/original_images-Google_Travel_Flights.png" width="50" height="50" class="d-inline-block align-top"  loading="lazy">
+          Cheap Flights Search
+        </a>
+        <div class="userList">
+          <ul>
+            <li><a href="/">Home</a></li>  
+            <li><a href="/contact">Contact us</a></li>  
+            <% if(!currentUser) { %>
+              <li><a href="/auth/signup">Signup</a></li>
+              <li><a href="/auth/login">Login</a></li>
+            <% } else { %> 
+              <li><a href="/auth/logout">Logout</a></li>
+              <li><a href="/profile">Profile</a></li>
+            <% } %> 
+          </ul>
+        </div>
+      </nav>
+</header>

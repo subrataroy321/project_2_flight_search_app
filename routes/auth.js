@@ -13,6 +13,7 @@ router.get('/login', (req, res) => {
 });
 
 router.post('/signup', (req,res)=> {
+  
   if(req.body.password === req.body.confirmPassword) {
     db.user.findOrCreate({
       where: { email: req.body.email },
@@ -30,7 +31,7 @@ router.post('/signup', (req,res)=> {
         console.log(`${user.email} was created`);
         passport.authenticate('local', {
           successRedirect: '/',
-          successFlash: 'Account Created and logged in'
+          successFlash: 'Account Created and logged in',
         })(req,res);
       } else {
         req.flash('error','Email already exists try again')
@@ -45,7 +46,7 @@ router.post('/signup', (req,res)=> {
   } 
   else {
     // sends a message thats password doesnot matchs with confirm password and stay on the same page
-    req.flash('error','Confirm password does not matchs')
+    req.flash('error','Password and Confirm password does not matchs')
     res.redirect('/auth/signup');
   }
 })

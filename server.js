@@ -8,6 +8,8 @@ const rapidapi_key = process.env.rapidapi_key;
 const passport = require('./config/ppConfig');
 const flash = require('connect-flash');
 const axios = require('axios');
+var methodOverride = require('method-override');
+
 
 const isLoggedIn = require('./middleware/isLoggedIn')
 
@@ -17,6 +19,7 @@ app.use(require('morgan')('dev'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(__dirname + '/public'));
 app.use(layouts);
+app.use(methodOverride('_method'));
 
 app.use(session({
   secret: SECRET_SESSION, // secret/session cookie: what we actually giving the user to use our site /
