@@ -59,6 +59,7 @@ app.get('/error', (req, res) => {
 
 app.use('/auth', require('./routes/auth'));
 app.use('/search', require('./routes/search'));
+app.use('/favorites', require('./routes/favorites'));
 
 
 const port = process.env.PORT || 3000;
