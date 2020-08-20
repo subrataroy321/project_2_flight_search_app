@@ -12,6 +12,7 @@
   "production": {
     "database": "flight_search_production",
     "host": "127.0.0.1",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "use_env_variable": "postgres://gkahclqgxxxpok:0d8981d58dcb1d377445c60eec4e2e72f577b9f04b3d06fc069a3b54d13326db@ec2-54-156-121-142.compute-1.amazonaws.com:5432/d9mm09an0re8fa"
   }
 }
