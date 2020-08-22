@@ -9,6 +9,12 @@ const passport = require('./config/ppConfig');
 const flash = require('connect-flash');
 const axios = require('axios');
 var methodOverride = require('method-override');
+const db = require('./models');
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
+const sessionStore = new SequelizeStore({
+  db: db.sequelize,
+  expiration: 1000 * 60 * 30 // session expires after 30 min
+});
 
 
 const isLoggedIn = require('./middleware/isLoggedIn')
@@ -24,9 +30,10 @@ app.use(methodOverride('_method'));
 app.use(session({
   secret: SECRET_SESSION, // secret/session cookie: what we actually giving the user to use our site /
   resave: false, // resave: save the session even if it's modified, make this false
-  saveUninitialized: true // saveUninitialized if we have a new session, we'll save it, therefore
+  saveUninitialized: true, // saveUninitialized if we have a new session, we'll save it, therefore
+  store: sessionStore
 }))
-
+sessionStore.sync();
 // initialize passport and run session as middleware
 app.use(passport.initialize());
 app.use(passport.session());
@@ -47,7 +54,13 @@ app.get('/', (req, res) => {
 });
 
 app.get('/profile', isLoggedIn, (req, res) => {
-  res.render('profile');
+  db.user.findOne({
+    where: {id: req.user.id}
+  })
+  .then(user=> {
+    console.log(user);
+    res.render('profile', {user: user});
+  })
 });
 
 app.get('/contact', (req, res) => {
@@ -59,7 +72,7 @@ app.get('/error', (req, res) => {
 
 app.use('/auth', require('./routes/auth'));
 app.use('/search', require('./routes/search'));
-app.use('/favorites', require('./routes/favorites'));
+app.use('/favorites',isLoggedIn, require('./routes/favorites'));
 
 
 const port = process.env.PORT || 3000;

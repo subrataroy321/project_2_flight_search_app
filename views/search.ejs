@@ -7,7 +7,7 @@
         <p> <%= queryData.originLocationCode %> ⟶ <%= queryData.destinationLocationCode %> </p>
         <p> Depart: <%= queryData.departureDate %> | Cabin Class: <%= queryData.travelClass %> | Adults: <%= queryData.adults %> | Children: <%= queryData.children %> | Infants: <%= queryData.infants %> </p>
     <% } else if(queryData.tripType === 'return') { %> 
-        <p>TripType: <%= queryData.tripType %> </p>
+        <p>TripType: <%= queryData.tripType.toUpperCase() %> </p>
         <p> <%= queryData.originLocationCode %> ⟶ <%= queryData.destinationLocationCode %> </p>
         <p> Depart: <%= queryData.departureDate %> | Return: <%= queryData.returnDate %> </p>
         <p> Cabin Class: <%= queryData.travelClass %> | Adults: <%= queryData.adults %> | Children: <%= queryData.children %> | Infants: <%= queryData.infants %> </p>
@@ -16,76 +16,209 @@
 </div>
 </br>
 <h2>Search Results </h2>
-
+<% let userId= 5; %> 
+<% let onewayOperatingAirlines = []; %> 
 <div class="searchResults">
-        
-        <% resultData.forEach(result => { %>
-        <div class="eachSearchResults">
-            <input type="hidden" name="id" value="<% result.id %>">
-            <div class="image-price">
-                <div class="imageDiv">
-                    <% let carrierCode = result.itineraries[0].segments[0].carrierCode %> 
-                    <p><img src="/assets/airlineTails/<%= carrierCode %>.png" style="height:150px;"></p>
-                    <input type="hidden" name="airline" value="../airlineTails/<%= carrierCode %>.png">
-                    <p style="font-size:15px;">Boeing: <%= result.itineraries[0].segments[0].aircraft.code %> </p>
-                    <input type="hidden" name="boeing" value="<%= result.itineraries[0].segments.length-1 %>">
-                </div>
-                <div class="shortDetails">
-                    <% let segments = result.itineraries[0].segments %> 
-                    <% let segmentsLength = segments.length %> 
-                    
-                    <p style="font-size:17px;"><%= segments[0].departure.iataCode %> ⟶ <%= segments[segmentsLength-1].arrival.iataCode %> </p>
-                    </br>
-                    <p>Departure: <%= segments[0].departure.at.slice(0,10) %> at <%= segments[0].departure.at.slice(-8) %></p>
-                    <p>Arrival: <%= segments[segmentsLength-1].arrival.at.slice(0,10) %> at <%= segments[segmentsLength-1].arrival.at.slice(-8) %> </p>
-                    <p>Stops: <%= result.itineraries[0].segments.length-1 %> </p>
-                    <input type="hidden" name="stops" value="<%= result.itineraries[0].segments.length-1 %>">
-                    </br>
-                    <p>Total Travel Time: <%= result.itineraries[0].duration.slice(2) %></p>
-                    <input type="hidden" name="totalTravelTime" value="<%= result.itineraries[0].duration.slice(2) %>">
-                    <a class="btn btn-link" data-toggle="collapse" data-target="#collapseOne">
-                        <img src="/assets/img/down-arrow-1767499-1502567.webp" alt="" height="30px">
-                    </a>
-                </div>
-                <div class="priceDiv">
-                    <div>
-                        <h3>Price:</h3>
-                    </div>
-                    <div>
-                        <h2 style="font-size:40px;color:rgb(228, 71, 8)"> $<%= result.travelerPricings[0].price.total %> </h2>
-                        <input type="hidden" name="Price" value="<%= result.travelerPricings[0].price.total %>">
-                    </div>
-                    <div>
-                        <a href="/search/add" style="text-align: end;">add to Favorites</a>
-                    </div>
-                </div>
-            </div>
-            <div>
+    <% resultData.forEach((result,index) => { %>
+            
+        <% if(typeof user == 'undefined'){ %>
+                <form action="/auth/login" method="get">
+            <% } else { %>
+                <form action="/favorites/<%= user.id %>/add" method="post">  
+                <%// console.log(user) %> 
+            <% } %> 
 
-                <div class=stopDetails>
-                    <div id="collapseOne" class="collapse">
-                        <div class="card-body">
-                            <% segments.forEach(segment=> { %>
-                            <% let i=0; %> 
-                            <p><%= segment.departure.iataCode %> | Terminal:<%= segment.departure.terminal %> ⟶ <%= segment.arrival.iataCode %> | Terminal:<%= segment.arrival.terminal %>   </p>
-                            <input type="hidden" name="departureAirport_<% i %>"  value="<%= segment.departure.iataCode %>|Terminal:<%= segment.departure.terminal %>">
-                            <input type="hidden" name="arrivalAirport_<% i %>" value="<%= segment.arrival.iataCode %>|Terminal:<%= segment.arrival.terminal %>">
-                            <p> Departure: <%= segment.departure.at.slice(0,10) %> at <%= segment.departure.at.slice(-8) %> ⟶ Arrival: <%= segment.arrival.at.slice(0,10) %> at <%= segment.arrival.at.slice(-8) %> </p>
-                            <input type="hidden" name="departureTime__<% i %>" value="<%= segment.departure.at.slice(0,10) %> at <%= segment.departure.at.slice(-8) %>">
-                            <input type="hidden" name="arrivalTime__<% i %>" value="<%= segment.arrival.at.slice(0,10) %> at <%= segment.arrival.at.slice(-8) %>">
-                            <% if(segments.length >= 1) { %> 
-                                <p>Travel Time: <%= segment.duration.slice(2) %> </p>
-                                <input type="hidden" name="tavelTime_<% i %>  value="<%= segment.duration.slice(2) %>">
+            <input type="hidden" name="tripType" value="<%= queryData.tripType %> ">        
+            <div class="eachSearchResults">
+
+                <div class="image-price">
+                    <div class="imageDiv">
+                        <% let carrierCode = result.itineraries[0].segments[0].carrierCode %> 
+                        <% let airName %> 
+                        <% //= getAirlineName(carrierCode) %> 
+                        
+                        <p><img src="/assets/airlineTails/<%= carrierCode %>.png" style="height:150px;"></p>
+
+                        <% airlineNames.forEach(airlineName => { %>
+                            <% if(carrierCode === airlineName.carrierCode) { %>
+                                <%// console.log(airlineName.airlineName) %> 
+                                <% airName = airlineName.airlineName; %>
                             <% } %> 
-                            <% i++; %> 
-                            </br>
-                            <% }) %> 
+                            
+                        <% }) %>
+
+                        <p> <%= airName %>  </p>
+                        
+                        <p style="font-size:15px;">Boeing: <%= result.itineraries[0].segments[0].aircraft.code %> </p>
+                    
+                    </div>
+                    <div class="shortDetails">
+                        <% let segments = result.itineraries[0].segments %> 
+                        <% let segmentsLength = segments.length %> 
+                        <p style="font-size:15px;color:rgb(228, 71, 8)">Outbound</p>
+                        <p style="font-size:17px;"><%= segments[0].departure.iataCode %> ⟶ <%= segments[segmentsLength-1].arrival.iataCode %> </p>
+                        </br>
+                        <p>Departure: <%= segments[0].departure.at.slice(0,10) %> at <%= segments[0].departure.at.slice(-8) %></p>
+                        <p>Arrival: <%= segments[segmentsLength-1].arrival.at.slice(0,10) %> at <%= segments[segmentsLength-1].arrival.at.slice(-8) %> </p>
+                        <p>Stops: <%= result.itineraries[0].segments.length-1 %> </p>
+                        <input type="hidden" name="stops" value="<%= result.itineraries[0].segments.length-1 %>">
+                        </br>
+                        <p>Total Travel Time: <%= result.itineraries[0].duration.slice(2) %></p>
+                        <input type="hidden" name="totalTravelTime" value="<%= result.itineraries[0].duration.slice(2) %>">
+                        <a class="btn btn-link" data-toggle="collapse" data-target="#collapse<%= index %>">
+                            <img src="/assets/img/down-arrow-1767499-1502567.webp" alt="" height="30px">
+                        </a>
+                    </div>
+                    <div class="priceDiv">
+                        <div>
+                            <h3>Price:</h3>
+                        </div>
+                        <div>
+                            <h2 style="font-size:40px;color:rgb(228, 71, 8)"> $<%= result.travelerPricings[0].price.total %> </h2>
+                            <input type="hidden" name="price" value="<%= result.travelerPricings[0].price.total %>">
+                        </div>
+                        <div>
+                            <button class="btn btn-link" type="submit" style="text-align: end;">add to Favorites</button>
+                        </div>
+                    </div>
+                </div>
+                <div>
+
+                    <div class=stopDetails>
+                        <div id="collapse<%= index %>" class="collapse">
+                            <div class="card-body">
+                                <% segments.forEach(segment=> { %>
+
+                                    <div class="operatingAirline">
+                                        <div class="operatingAirlineImg">
+                                            <% let segmentCarrierCode = segment.carrierCode %> 
+                                            <p><img src="/assets/airlineTails/<%= segmentCarrierCode %>.png" height="50px"></p>
+                                            <input type="hidden" name="airlineCode" value="<%= segmentCarrierCode %>">
+                                            <% let airline %> 
+                                            <% airlineNames.forEach(airlineName => { %>
+                                                <% if(segmentCarrierCode === airlineName.carrierCode) { %>
+                                                    <% //console.log(airlineName.airlineName) %> 
+                                                    <% airline = airlineName.airlineName; %>
+                                                <% } %> 
+                                                
+                                            <% }) %>
+
+                                            <input type="hidden" name="airline" value="<%= airline %> ">
+                                            <p><%= airline %> | Boeing: <%= segment.aircraft.code %></p>
+                                            <input type="hidden" name="aircraftCode" value="<%= segment.aircraft.code %> ">
+                                        </div>
+
+                                        <div class="operatingAirlineDetails">
+                                            <p><%= segment.departure.iataCode %> | Terminal:<%= segment.departure.terminal %> ⟶ <%= segment.arrival.iataCode %> | Terminal:<%= segment.arrival.terminal %>   </p>
+                                            <input type="hidden" name="departureAirport"  value="<%= segment.departure.iataCode %> | Terminal:<%= segment.departure.terminal %>">
+                                            <input type="hidden" name="arrivalAirport" value="<%= segment.arrival.iataCode %> | Terminal:<%= segment.arrival.terminal %>">
+                                            <p> Departure: <%= segment.departure.at.slice(0,10) %> at <%= segment.departure.at.slice(-8) %> ⟶ Arrival: <%= segment.arrival.at.slice(0,10) %> at <%= segment.arrival.at.slice(-8) %> </p>
+                                            <input type="hidden" name="departureTime" value="<%= segment.departure.at.slice(0,10) %> at <%= segment.departure.at.slice(-8) %>">
+                                            <input type="hidden" name="arrivalTime" value="<%= segment.arrival.at.slice(0,10) %> at <%= segment.arrival.at.slice(-8) %>">
+                                            <p>Travel Time: <%= segment.duration.slice(2) %> </p>
+                                            <input type="hidden" name="tavelTime"  value="<%= segment.duration.slice(2) %>">
+                                            <%// i++; %> 
+                                            </br>
+                                        </div>
+
+                                    </div>
+                                <% }) %> 
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        
+            
+
+            <% if(queryData.tripType === 'return' ) { %>
+                <div class="eachSearchResults returnResults">
+                    <div class="image-price">
+                        <div class="imageDiv">
+                            
+                            <% let returnCarrierCode = result.itineraries[1].segments[0].carrierCode %> 
+
+                            <p><img src="/assets/airlineTails/<%= returnCarrierCode %>.png" style="height:150px;"></p>
+                            <% let returnAirName %> 
+                            <% airlineNames.forEach(airlineName => { %>
+                                <% if(returnCarrierCode === airlineName.carrierCode) { %>
+                                    <%// console.log(airlineName.airlineName) %> 
+                                    <% returnAirName = airlineName.airlineName; %>
+                                <% } %> 
+                                
+                            <% }) %>
     
- <% }); %>
+                            <p> <%= returnAirName %>  </p>
+                            <p style="font-size:15px;">Boeing: <%= result.itineraries[1].segments[0].aircraft.code %> </p>
+                        </div>
+                        <div class="shortDetails">
+                            <% let returnSegments = result.itineraries[1].segments %> 
+                            <% let returnSegmentsLength = returnSegments.length %> 
+                            <p style="font-size:15px;color:rgb(228, 71, 8)">Inbound</p>
+                            <p style="font-size:17px;"><%= returnSegments[0].departure.iataCode %> ⟶ <%= returnSegments[returnSegmentsLength-1].arrival.iataCode %> </p>
+                            </br>
+                            <p>Departure: <%= returnSegments[0].departure.at.slice(0,10) %> at <%= returnSegments[0].departure.at.slice(-8) %></p>
+                            <p>Arrival: <%= returnSegments[returnSegmentsLength-1].arrival.at.slice(0,10) %> at <%= returnSegments[returnSegmentsLength-1].arrival.at.slice(-8) %> </p>
+                            <p>Stops: <%= returnSegmentsLength-1 %> </p>
+                            <input type="hidden" name="returnStops" value="<%= returnSegmentsLength-1 %>">
+                            </br>
+                            <p>Total Travel Time: <%= result.itineraries[1].duration.slice(2) %></p>
+                            <input type="hidden" name="totalReturnTravelTime" value="<%= result.itineraries[1].duration.slice(2) %>">
+                            <a class="btn btn-link" data-toggle="collapse" data-target="#collapseReturn<%= index %>">
+                                <img src="/assets/img/down-arrow-1767499-1502567.webp" alt="" height="30px">
+                            </a>
+                        </div>
+                        <div class="priceDiv">
+                            
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class=stopDetails>
+                            <div id="collapseReturn<%= index %>" class="collapse">
+                                <div class="card-body">
+                                    <% returnSegments.forEach(segment=> { %>
+    
+                                        <div class="operatingAirline">
+                                            <div class="operatingAirlineImg">
+                                                <% let returnSegmentCarrierCode = segment.carrierCode %>
+                                                <p><img src="/assets/airlineTails/<%= returnSegmentCarrierCode %>.png" height="50px"></p>
+                                                <input type="hidden" name="returnAirlineCode" value="<%= returnSegmentCarrierCode %>">
+                                                <% let returnAirline %> 
+                                                <% airlineNames.forEach(airlineName => { %>
+                                                    <% if(returnSegmentCarrierCode === airlineName.carrierCode) { %>
+                                                        <%// console.log(airlineName.airlineName) %> 
+                                                        <% returnAirline = airlineName.airlineName; %>
+                                                    <% } %> 
+                                                <% }) %>
+                                                <p><%= returnAirline %> | Boeing: <%= segment.aircraft.code %></p>
+                                                <input type="hidden" name="returnAirline" value="<%= returnAirline %> ">
+                                                <input type="hidden" name="returnAircraftCode" value="<%= segment.aircraft.code %> ">
+                                            </div>
+    
+                                            <div class="operatingAirlineDetails">
+                                                <p><%= segment.departure.iataCode %> | Terminal:<%= segment.departure.terminal %> ⟶ <%= segment.arrival.iataCode %> | Terminal:<%= segment.arrival.terminal %>   </p>
+                                                <input type="hidden" name="returnDepartureAirport"  value="<%= segment.departure.iataCode %> | Terminal:<%= segment.departure.terminal %>">
+                                                <input type="hidden" name="returnArrivalAirport" value="<%= segment.arrival.iataCode %> | Terminal:<%= segment.arrival.terminal %>">
+                                                <p> Departure: <%= segment.departure.at.slice(0,10) %> at <%= segment.departure.at.slice(-8) %> ⟶ Arrival: <%= segment.arrival.at.slice(0,10) %> at <%= segment.arrival.at.slice(-8) %> </p>
+                                                <input type="hidden" name="returnDepartureTime" value="<%= segment.departure.at.slice(0,10) %> at <%= segment.departure.at.slice(-8) %>">
+                                                <input type="hidden" name="returnArrivalTime" value="<%= segment.arrival.at.slice(0,10) %> at <%= segment.arrival.at.slice(-8) %>">
+                                                <p>Travel Time: <%= segment.duration.slice(2) %> </p>
+                                                <input type="hidden" name="returnTavelTime"  value="<%= segment.duration.slice(2) %>">
+                                                </br>
+                                            </div>
+    
+                                        </div>
+                                    <% }) %> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            <% } %> 
+
+        </form>  
+
+    <% }); %>
+
 </div>

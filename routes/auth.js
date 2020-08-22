@@ -52,11 +52,13 @@ router.post('/signup', (req,res)=> {
 })
 
 router.post('/login', passport.authenticate('local', {
+
   successRedirect: '/',
   successFlash: 'Successfully logged in. Welcome',
   failureRedirect: '/auth/login',
   failureFlash: 'Either email or password incorrect. Please try again'
 }))
+
 
 
 router.get('/logout', (req,res)=> {

@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('favorites', {
+    await queryInterface.createTable('outboundFavorites', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -11,17 +11,29 @@ module.exports = {
       userId: {
         type: Sequelize.INTEGER
       },
-      airline: {
+      inboundFavoriteId: {
+        type: Sequelize.INTEGER
+      },
+      tripType: {
         type: Sequelize.STRING
       },
-      boeing: {
+      price: {
+        type: Sequelize.STRING
+      },
+      totalTravelTime: {
         type: Sequelize.STRING
       },
       stops: {
         type: Sequelize.INTEGER
       },
-      checkedBags: {
-        type: Sequelize.INTEGER
+      airline1: {
+        type: Sequelize.STRING
+      },
+      airlineCode1: {
+        type: Sequelize.STRING
+      },
+      aircraftCode1: {
+        type: Sequelize.STRING
       },
       departureAirport1: {
         type: Sequelize.STRING
@@ -36,6 +48,15 @@ module.exports = {
         type: Sequelize.STRING
       },
       travelTime1: {
+        type: Sequelize.STRING
+      },
+      airline2: {
+        type: Sequelize.STRING
+      },
+      airlineCode2: {
+        type: Sequelize.STRING
+      },
+      aircraftCode2: {
         type: Sequelize.STRING
       },
       departureAirport2: {
@@ -53,6 +74,15 @@ module.exports = {
       travelTime2: {
         type: Sequelize.STRING
       },
+      airline3: {
+        type: Sequelize.STRING
+      },
+      airlineCode3: {
+        type: Sequelize.STRING
+      },
+      aircraftCode3: {
+        type: Sequelize.STRING
+      },
       departureAirport3: {
         type: Sequelize.STRING
       },
@@ -66,6 +96,15 @@ module.exports = {
         type: Sequelize.STRING
       },
       travelTime3: {
+        type: Sequelize.STRING
+      },
+      airline4: {
+        type: Sequelize.STRING
+      },
+      airlineCode4: {
+        type: Sequelize.STRING
+      },
+      aircraftCode4: {
         type: Sequelize.STRING
       },
       departureAirport4: {
@@ -83,6 +122,15 @@ module.exports = {
       travelTime4: {
         type: Sequelize.STRING
       },
+      airline5: {
+        type: Sequelize.STRING
+      },
+      airlineCode5: {
+        type: Sequelize.STRING
+      },
+      aircraftCode5: {
+        type: Sequelize.STRING
+      },
       departureAirport5: {
         type: Sequelize.STRING
       },
@@ -98,12 +146,6 @@ module.exports = {
       travelTime5: {
         type: Sequelize.STRING
       },
-      totalTravelTime: {
-        type: Sequelize.STRING
-      },
-      price: {
-        type: Sequelize.STRING
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
@@ -115,6 +157,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('favorites');
+    await queryInterface.dropTable('outboundFavorites');
   }
 };

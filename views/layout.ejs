@@ -27,7 +27,20 @@
     let returnLabel = document.getElementById('returnLabel');
     let radios = document.getElementsByName('tripType')
     
+    function defaultRadioCheck() {
+      if(radios[0].checked || radios[1].checked) {
+        //nothing
+      } else {
+        radios[1].checked = true;
+      }
+      tripTypeCheck();
+    }
+    
+    
+    
     function tripTypeCheck() {
+      
+
       let checkedTripType = document.querySelector('input[name="tripType"]:checked').value;
         
         if(checkedTripType === 'oneway') {
@@ -46,30 +59,11 @@
     AirportInput("autocomplete-airport-2");
     
     var today = new Date().toISOString().split('T')[0];
-    document.getElementsByName("returnDate")[0].setAttribute('min', today);
     document.getElementsByName("departureDate")[0].setAttribute('min', today);
-    
-    let newPassword = document.getElementbyId('new-password'); 
-    let confirmPassword = document.getElementbyId('confirm-password');
-    let submitButton = document.getElementbyId('submit')
-    let form = document.getElementById('signupForm');
-    form && form.addEventListener('submit', passwordMatchCheck);
-    
-    // FUNCTION THAT CHECK MATCHING OF PASSWORD AND CONFIRM PASSWORD
-    function passwordMatchCheck(event) {
-      alert('hey');
-      if (newPassword.value != confirmPassword.value) { 
-        event.preventDefault();
-        confirmPassword.setCustomValidity('Password Must be Matching.'); 
-      } else { 
-        // input is valid -- reset the error message 
-        confirmPassword.setCustomValidity(''); 
-      } 
-    }
-
+    document.getElementsByName("returnDate")[0].setAttribute('min', today);
 
 
     </script>
     
-  
+    <% console.log('test string2') %> 
 </html>

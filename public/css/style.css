@@ -42,8 +42,13 @@ input[type='radio'] {
   border-radius: 25px;
   background-color: #9cecd0; 
   color: black;
-  margin: 10px;
+
 }
+.returnResults{ 
+  margin-bottom: 20px;
+
+}
+
 .searchForm{
   margin: 0 auto;
 }
@@ -64,7 +69,6 @@ input[type='radio'] {
 .image-price{
   display: grid;
   grid-template-columns: 1fr 1.5fr 1fr;
-  border-bottom: 3px double rgb(252, 251, 250);
   border-radius: 20px;
 }
 
@@ -86,6 +90,11 @@ input[type='radio'] {
   display: grid;
   grid-template-rows: 1fr 2fr 1fr;
   margin: auto 0;
+}
+
+.operatingAirline {
+  display: grid;
+  grid-template-columns: 20% 80%;
 }
 
 .searchInputHeader{

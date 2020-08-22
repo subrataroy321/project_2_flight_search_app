@@ -266,3 +266,21 @@
 	</div>
 </div>
 </form>
+
+<script>
+	console.log('test string')
+    let newPassword = document.getElementById('new-password'); 
+    let confirmPassword = document.getElementById('confirm-password');
+    let form = document.getElementById('signupForm');
+    form.addEventListener('submit', passwordMatchCheck);
+    // FUNCTION THAT CHECK MATCHING OF PASSWORD AND CONFIRM PASSWORD
+    function passwordMatchCheck(event) {
+      if (newPassword.value != confirmPassword.value) { 
+        event.preventDefault();
+        confirmPassword.setCustomValidity('Password Must be Matching.'); 
+      } else { 
+        // input is valid -- reset the error message 
+        confirmPassword.setCustomValidity(''); 
+      } 
+    }
+</script>

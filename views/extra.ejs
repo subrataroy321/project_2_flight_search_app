@@ -1,0 +1,74 @@
+<div class="searchResults">
+    <% resultData.forEach(result => { %>
+        <form action="/favorites/<%= result.id %>/delete" method="post">  
+            <div class="eachSearchResults">
+                <input type="hidden" name="faveriteId" value="<% result.id %>">
+                <input type="hidden" name="userId" value="<%// result.id %>">
+                <div class="image-price">
+                    <div class="imageDiv">
+                        <% let carrierCode = result.airline %> 
+                        <p><img src="/assets/airlineTails/<%= carrierCode %>.png" style="height:150px;"></p>
+                        <p style="font-size:15px;">Boeing: <%= result.boeing %> </p>
+                    </div>
+                    <div class="shortDetails">
+                        <% let arrivalAirport; %>
+                        <% let arrivalTime %> 
+                         
+                        <% if(result.arrivalAirport5){ %>
+                            <% arrivalAirport= result.arrivalAirport5 ;%>
+                            <% arrivalTime = result.arrivalTime5 %> 
+                        <% } else if(result.arrivalAirport4) { %>  
+                            <% arrivalAirport= result.arrivalAirport4 ;%>
+                            <% arrivalTime = result.arrivalTime4 %> 
+                        <% } else if(result.arrivalAirport3) { %>  
+                            <% arrivalAirport= result.arrivalAirport3 ;%>
+                            <% arrivalTime = result.arrivalTime3 %> 
+                        <% } else { %>  
+                            <% arrivalAirport= result.arrivalAirport2 ;%>
+                            <% arrivalTime = result.arrivalTime2 %> 
+                        <% } %> 
+
+
+                        <p style="font-size:17px;"><%= result.departureAirport1 %> ⟶ <%= result.arrivalAirport %> </p>
+                        </br>
+                        <p>Departure: <%= result.departureTime1 %></p>
+                        <p>Arrival: <%= result.arrivalTime %> </p>
+                        <p>Stops: <%= result.stops %> </p>
+                        </br>
+                        <p>Total Travel Time: <%= result.totalTravelTime %></p>
+                        <a class="btn btn-link" data-toggle="collapse" data-target="#collapseOne">
+                            <img src="/assets/img/down-arrow-1767499-1502567.webp" alt="" height="30px">
+                        </a>
+                    </div>
+                    <div class="priceDiv">
+                        <div>
+                            <h3>Price:</h3>
+                        </div>
+                        <div>
+                            <h2 style="font-size:40px;color:rgb(228, 71, 8)"> $<%= result.price %> </h2>
+                        </div>
+                        <div>
+                            <button class="btn btn-link" type="submit" style="text-align: end;">delete from Favorites</button>
+                        </div>
+                    </div>
+                </div>
+                <div>
+
+                    <div class=stopDetails>
+                        <div id="collapseOne" class="collapse">
+                            <div class="card-body">
+                                <% for(let i=0; i<5;i++) {  %> 
+                                <p><%= `result.departureAirport${i}` %> ⟶ <%= `result.arrivalAirport${i}`   </p>
+                                <p> Departure: <%= `result.departureTime${i}` %> ⟶ Arrival: <%= `result.arrivalTime${i}` %> </p>
+                                <p>Travel Time: <%= `result.tavelTime${i}` %> </p>
+                                </br>
+                                <% } %> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+        </form>  
+ <% }); %>
+</div>

@@ -3,8 +3,8 @@
 
 <form class="searchForm"action="/search" method="get">
     <div class="tripType">
-        <input type="radio" value="oneway" id="oneway" name="tripType" onclick="tripTypeCheck()"> One Way
-        <input type="radio" value="return" id="return" name="tripType" onclick="tripTypeCheck()" checked> Round Trip
+        <input type="radio" value="oneway" id="oneway" name="tripType" onclick="tripTypeCheck()" onload="defaultRadioCheck()"> One Way
+        <input type="radio" value="return" id="return" name="tripType" onclick="tripTypeCheck()" > Round Trip
         <!-- <input type="radio" value="multicity" id="return" name="tripType"> Multicity -->
     </div>
       <div class="searchInputDiv">
@@ -20,7 +20,7 @@
           <label for="departureDate">Depart</label>
           <input class="dateInput"type="date" name="departureDate" id="departureDate" required>
           <label for="returnDate" id="returnLabel">Return</label>
-          <input class="dateInput" type="date" name="returnDate" id="returnDate">
+          <input class="dateInput" type="date" name="returnDate" id="returnDate" required>
       </div>
     </br>
     </br>
@@ -70,3 +70,9 @@
 </br>
     <button type="submit" style="font-size:30px;height:60px;width:600px;background-color:rgb(243, 175, 116);">Search Flights →</button>
 </form>
+
+<script>
+defaultRadioCheck();
+
+
+</script>
