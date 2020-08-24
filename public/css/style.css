@@ -117,6 +117,7 @@ input[type='radio'] {
 }
 
 .userProfile{
+  color: rgb(99, 99, 145);
   text-align: left;
   width: 600px;
   margin: 0 auto;
@@ -142,6 +143,19 @@ input[type='radio'] {
   display: grid;
   grid-template-rows: 70px 70px 1fr;
   grid-template-columns: .7fr 3fr;
+}
+
+#avatarDiv {
+  display: flex;
+  justify-content: center;
+  
+}
+
+#userAvatar {
+  border: 5px solid rgb(216, 117, 11);
+  border-radius: 50%;
+  margin-bottom: 40px;
+  
 }
 
 /* Airport Auto-Complete Styling*/

@@ -2,6 +2,9 @@
 </br>
 
 <div class="userProfile">
+    <div id="avatarDiv">
+        <img src="/assets/img/images.png" alt="Avatar" id="userAvatar">
+    </div>
     <h4> First Name: <span class="profile"><%= user.firstName %> </span></h4>
     <h4> Last Name: <span class="profile"><%= user.lastName %> </span></h4>
     <h4> Contact No: <span class="profile"><%= user.countryCode %>-(<%= user.contactNo.slice(0,3) %>) <%= user.contactNo.slice(3,6) %>-<%= user.contactNo.slice(6) %>  </span></h4>
