@@ -9,7 +9,7 @@ body {
 }
 
 .navbar,.navbar-light {
-  background-color:rgb(243, 175, 116);
+  background-color:#f3af74;
 }
 
 nav ul li {
@@ -37,6 +37,7 @@ input[type='radio'] {
 }
 
 .eachSearchResults {
+  margin-top: 20px;
   width: 800px;
   border: 2px solid white;
   border-radius: 25px;
@@ -46,7 +47,11 @@ input[type='radio'] {
 }
 .returnResults{ 
   margin-bottom: 20px;
-
+  width: 800px;
+  border: 2px solid white;
+  border-radius: 25px;
+  background-color: #9cecd0; 
+  color: black;
 }
 
 .searchForm{
@@ -99,6 +104,39 @@ input[type='radio'] {
 
 .searchInputHeader{
   margin-top: 10px;
+}
+
+
+.changePassword {
+  display: none;
+  margin: 20px auto;
+  width: 450px;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-gap: 5px;
+}
+
+.userProfile{
+  text-align: left;
+  width: 600px;
+  margin: 0 auto;
+  padding: 50px;
+  background-color: #9cecd0;
+  border: 5px double white;
+  border-radius: 15px;
+}
+
+.profile{
+  color: #c2610b;
+}
+
+.contact{
+  margin: 0 auto;
+  width: 400px;
+  text-align: center;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: .7fr 3fr;
 }
 
 /* Airport Auto-Complete Styling*/

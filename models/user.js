@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       models.user.belongsToMany(models.outboundFavorite, {through: "userOutboundFavorite"})
+      
     }
   };
   user.init({
@@ -72,12 +73,41 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'user',
+  },{
+    hooks: {
+      beforeUpdate: function(user,options) {
+  
+          console.log('#############################');
+          console.log(user)
+          let hash = bcrypt.hashSync(user.attributes.password, 12);
+          console.log('#########################'+hash);
+          user.password = hash;
+        }
+    }
   });
 
 user.addHook('beforeCreate', function(pendingUser) {
   let hash = bcrypt.hashSync(pendingUser.password, 12);
   pendingUser.password = hash;
 })
+
+// user.addHook('beforeBulkUpdate', function(pendingUser) {
+  
+//   console.log('#############################');
+//   console.log(pendingUser)
+//   let hash = bcrypt.hashSync(pendingUser.attributes.password, 12);
+//   console.log('#########################'+hash);
+//   pendingUser.password = hash;
+// })
+
+// user.beforeUpdate((user,options)=> {
+//   console.log(user);
+//   let hash = bcrypt.hashSync(user.password, 12);
+//   console.log(user.password);
+//   console.log(hash);
+
+//   user.password = hash;
+// })
 
 user.prototype.validPassword = function(passwordTyped) {
   let correctPassword= bcrypt.compareSync(passwordTyped, this.password);
@@ -89,5 +119,6 @@ user.prototype.toJSON = function() {
   delete userData.password;
   return userData;
 }
+
 return user;
 };

@@ -4,11 +4,11 @@ const layouts = require('express-ejs-layouts');
 const app = express();
 const session = require('express-session');
 const SECRET_SESSION = process.env.SECRET_SESSION;
-const rapidapi_key = process.env.rapidapi_key;
+const EMAILJS_USER_ID = process.env.EMAILJS_USER_ID;
 const passport = require('./config/ppConfig');
 const flash = require('connect-flash');
 const axios = require('axios');
-var methodOverride = require('method-override');
+const methodOverride = require('method-override');
 const db = require('./models');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const sessionStore = new SequelizeStore({
@@ -49,23 +49,75 @@ app.use((req,res,next)=> {
   next();
 });
 
-app.get('/', (req, res) => {     
-  res.render('index', {alerts: res.locals.alerts});
+// get route for index page
+app.get('/', (req, res) => {    
+  if(typeof user == 'undefined'){ 
+    res.render('index', {alerts: res.locals.alerts});
+  } else { 
+    res.render('index', {alerts: res.locals.alerts, user: user});
+  }
 });
 
+// get route for profile page ## only access when user logged in
 app.get('/profile', isLoggedIn, (req, res) => {
   db.user.findOne({
     where: {id: req.user.id}
   })
   .then(user=> {
-    console.log(user);
-    res.render('profile', {user: user});
+    res.render('profile', {user: user.dataValues});
   })
 });
 
+// put route for updating password 
+// Problem: password is not hashing before storing into database
+app.put('/profile/changePassword', isLoggedIn, (req,res)=> {
+  // db.user.findOne({
+  //   where: {id: req.user.id}
+  // })
+  // .then(user=> {
+    if(req.user.validPassword(req.body.currentPassword)) {
+      if(req.body.newPassword === req.body.confirmNewPassword) {
+        db.user.update({password: req.body.newPassword}, { where: {
+          id: req.user.id
+        }})
+        .then(user => {
+          req.flash('success','Password Updated')
+          res.redirect('/profile');
+        })
+      } else {
+        req.flash('error','New Password and Confirm New Password did not matched')
+        res.redirect('/profile');
+      }
+    } else {
+      req.flash('error','Current Password invalid')
+      res.redirect('/profile');
+    }
+  //})
+})
+
+// get route for contact page
 app.get('/contact', (req, res) => {
   res.render('contact');
 });
+
+// post route for sending contact us info
+app.post('/contact/send', (req,res)=> {
+  console.log(`contactform`)
+  axios.post('https://api.emailjs.com/api/v1.0/email/send-form',{
+    data: {
+      service_id: 'gmail',
+      template_id: 'template_2NY7o97Q',
+      user_id: EMAILJS_USER_ID
+    }
+  }).then(()=> {
+    req.flash('success','Message Sent');
+  }).catch(error=> {
+    req.flash('error','Opps... Something went wrong. try again.');
+    res.redirect('/contact');
+  })
+})
+
+// get route for error page
 app.get('/error', (req, res) => {
   res.render('error');
 });
@@ -73,7 +125,6 @@ app.get('/error', (req, res) => {
 app.use('/auth', require('./routes/auth'));
 app.use('/search', require('./routes/search'));
 app.use('/favorites',isLoggedIn, require('./routes/favorites'));
-
 
 const port = process.env.PORT || 3000;
 const server = app.listen(port, () => {

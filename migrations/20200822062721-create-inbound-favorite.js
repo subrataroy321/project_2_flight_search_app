@@ -38,7 +38,7 @@ module.exports = {
       returnArrivalTime1: {
         type: Sequelize.STRING
       },
-      returnTavelTime1: {
+      returnTravelTime1: {
         type: Sequelize.STRING
       },
       returnAirline2: {
@@ -62,7 +62,7 @@ module.exports = {
       returnArrivalTime2: {
         type: Sequelize.STRING
       },
-      returnTavelTime2: {
+      returnTravelTime2: {
         type: Sequelize.STRING
       },
       returnAirline3: {
@@ -86,7 +86,7 @@ module.exports = {
       returnArrivalTime3: {
         type: Sequelize.STRING
       },
-      returnTavelTime3: {
+      returnTravelTime3: {
         type: Sequelize.STRING
       },
       returnAirline4: {
@@ -110,7 +110,7 @@ module.exports = {
       returnArrivalTime4: {
         type: Sequelize.STRING
       },
-      returnTavelTime4: {
+      returnTravelTime4: {
         type: Sequelize.STRING
       },
       returnAirline5: {
@@ -134,7 +134,7 @@ module.exports = {
       returnArrivalTime5: {
         type: Sequelize.STRING
       },
-      returnTavelTime5: {
+      returnTravelTime5: {
         type: Sequelize.STRING
       },
       createdAt: {

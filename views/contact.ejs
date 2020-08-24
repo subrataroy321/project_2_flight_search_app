@@ -1,1 +1,31 @@
-<h1>You are at Contact us page</h1>
+<h3>Contact us</h3>
+</br>
+<!-- <form id="contact-form" action="/contact/send" method="post"> -->
+<form action="/contact/send" method="post"></form>
+    <div class="contact">
+            <input type="hidden" name="contact_number">
+            <div>
+                <label>Name</label>
+            </div>
+            <div>
+                <input type="text" name="user_name" required>
+            </div>
+            <div>
+                <label>Email</label>
+            </div>
+            <div>
+                <input type="email" name="user_email" required>
+            </div>
+            <div>
+                <label>Message</label>
+            </div>
+            <div>
+                <textarea name="message"></textarea required>
+            </div>
+            <div></div>
+            <div>
+                <button type="submit">Send</button>
+                
+            </div>
+    </div>
+</form>

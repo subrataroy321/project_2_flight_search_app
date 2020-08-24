@@ -1,18 +1,28 @@
 
 <h2>Favorites </h2>
 
+
+<% if(!favoritesData.length) { %>
+    </br>
+    <p>Nothing Added to Favorites Yet</p>
+    </br>
+    
+<% } %>
+
+
+<% console.log(favoritesData) %> 
 <div class="searchResults">
     <% favoritesData.forEach((result,index) => { %>
-        <%// console.log(result); %>
-        <form action="/favorites/<%= result.id %>/delete" method="post">  
+        
+        <form action="/favorites/delete/<%= result.id %>?_method=DELETE" method="post">  
             <div class="eachSearchResults">
                 <input type="hidden" name="faveriteId" value="<%= result.id %>">
-                <input type="hidden" name="userId" value="<%= result.id %>">
+                <input type="hidden" name="userId" value="<%= result.userId %>">
                 <div class="image-price">
                     <div class="imageDiv">
-                        <% let carrierCode = result.airline %> 
-                        <p><img src="/assets/airlineTails/<%= carrierCode %>.png" style="height:150px;"></p>
-                        <p style="font-size:15px;">Boeing: <%= result.boeing %> </p>
+                        
+                        <p><img src="/assets/airlineTails/<%= result.airlineCode1 %>.png" style="height:150px;"></p>
+                        <p style="font-size:15px;"><%= result.airline1 %> | Boeing: <%= result.aircraftCode1 %> </p>
                     </div>
                     <div class="shortDetails">
                         <% let arrivalAirport %>
@@ -67,16 +77,106 @@
                         <div id="collapse<%= index %>" class="collapse">
                             <div class="card-body">
                                 <% for(let i=1; i<=5;i++) {  %> 
-                                <p><%= result[`departureAirport${i}`] %> ⟶ <%= result[`arrivalAirport${i}`] %>  </p>
-                                <p> Departure: <%= result[`departureTime${i}`] %> ⟶ Arrival: <%= result[`arrivalTime${i}`] %> </p>
-                                <p>Travel Time: <%= result[`travelTime${i}`] %> </p>
-                                </br>
+                                    <div class="operatingAirline">
+                                        <div>
+                                            <% if(result[`airlineCode${i}`]) { %> 
+                                            <p><img src="/assets/airlineTails/<%= result[`airlineCode${i}`] %>.png" height="50px"></p>
+                                            <p><%= result[`airline${i}`] %> | Boeing: <%= result[`aircraftCode${i}`] %></p>
+                                            <% } %> 
+                                        </div>
+                                        <div>
+                                            <% if(result[`departureAirport${i}`]) { %>
+                                              
+                                                <p><%= result[`departureAirport${i}`] %> ⟶ <%= result[`arrivalAirport${i}`] %>  </p>
+                                                <p> Departure: <%= result[`departureTime${i}`] %> ⟶ Arrival: <%= result[`arrivalTime${i}`] %> </p>
+                                                <p>Travel Time: <%= result[`travelTime${i}`] %> </p>
+                                                </br>
+                                            <% } %> 
+                                        </div>
+                                    </div>
                                 <% } %> 
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <% if(result.inboundFavorite) { %>
+                <div class="returnResults">
+                    
+                    <div class="image-price">
+                        <div class="imageDiv">
+                            
+                            <p><img src="/assets/airlineTails/<%= result.inboundFavorite.returnAirlineCode1 %>.png" style="height:150px;"></p>
+                            <p style="font-size:15px;"><%= result.inboundFavorite.returnAirline1 %> | Boeing: <%= result.inboundFavorite.returnAircraftCode1 %> </p>
+                        </div>
+                        <div class="shortDetails">
+                            <% let returnArrivalAirport %>
+                            <% let returnArrivalTime %> 
+                            
+                            <% if(result.inboundFavorite.returnArrivalAirport5){ %>
+                                <% returnArrivalAirport= result.inboundFavorite.returnArrivalAirport5 %>
+                                <% returnArrivalTime = result.inboundFavorite.returnArrivalTime5 %> 
+                            <% } else if(result.inboundFavorite.returnArrivalAirport4) { %>  
+                                <% returnArrivalAirport= result.inboundFavorite.returnArrivalAirport4 %>
+                                <% returnArrivalTime = result.inboundFavorite.returnArrivalTime4 %> 
+                            <% } else if(result.inboundFavorite.returnArrivalAirport3) { %>  
+                                <% returnArrivalAirport= result.inboundFavorite.returnArrivalAirport3 %>
+                                <% returnArrivalTime = result.inboundFavorite.returnArrivalTime3 %> 
+                            <% } else if(result.inboundFavorite.returnArrivalAirport2) { %>  
+                                <% returnArrivalAirport= result.inboundFavorite.returnArrivalAirport2 %>
+                                <% returnArrivalTime = result.inboundFavorite.returnArrivalTime2 %> 
+                            <% } else {%> 
+                                <% returnArrivalAirport= result.inboundFavorite.returnArrivalAirport1 %>
+                                <% returnArrivalTime = result.inboundFavorite.returnArrivalTime1 %> 
+                            <% } %> 
+
+
+                            <p style="font-size:17px;"><%= result.inboundFavorite.returnDepartureAirport1 %> ⟶ <%=returnArrivalAirport %> </p>
+                            </br>
+                            <p>Departure: <%= result.inboundFavorite.returnDepartureTime1 %></p>
+                            <p>Arrival: <%= returnArrivalTime %> </p>
+                            <p>Stops: <%= result.inboundFavorite.returnStops %> </p>
+                            </br>
+                            <p>Total Travel Time: <%= result.inboundFavorite.totalReturnTravelTime %></p>
+
+
+                            <a class="btn btn-link" data-toggle="collapse" data-target="#collapseReturn<%= index %>">
+                                <img src="/assets/img/down-arrow-1767499-1502567.webp" alt="" height="30px">
+                            </a>
+                        </div>
+                        <div class="priceDiv">
+                            
+                        </div>
+                    </div>
+
+                    <div class=stopDetails>
+                        <div id="collapseReturn<%= index %>" class="collapse">
+                            <div class="card-body">
+                                <% for(let i=1; i<=5;i++) {  %> 
+                                    <div class="operatingAirline">
+                                        <div>
+                                            <% if(result.inboundFavorite[`returnAirlineCode${i}`]) { %> 
+                                            <p><img src="/assets/airlineTails/<%= result.inboundFavorite[`returnAirlineCode${i}`] %>.png" height="50px"></p>
+                                            <p><%= result.inboundFavorite[`returnAirline${i}`] %> | Boeing: <%= result.inboundFavorite[`returnAircraftCode${i}`] %></p>
+                                            <% } %> 
+                                        </div>
+                                        <div>
+                                            <% if(result.inboundFavorite[`returnDepartureAirport${i}`]) { %>
+                                              
+                                                <p><%= result.inboundFavorite[`returnDepartureAirport${i}`] %> ⟶ <%= result.inboundFavorite[`returnArrivalAirport${i}`] %>  </p>
+                                                <p> Departure: <%= result.inboundFavorite[`returnDepartureTime${i}`] %> ⟶ Arrival: <%= result.inboundFavorite[`returnArrivalTime${i}`] %> </p>
+                                                <p>Travel Time: <%= result.inboundFavorite[`returnTravelTime${i}`] %> </p>
+                                                </br>
+                                            <% } %> 
+                                        </div>
+                                    </div>
+                                <% } %> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <% }%> 
         
         </form>  
  <% }); %>

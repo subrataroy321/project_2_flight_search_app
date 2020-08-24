@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       models.outboundFavorite.belongsToMany(models.user, {through: "userOutboundFavorite"});
+
       models.outboundFavorite.hasOne(models.inboundFavorite)
 
     }

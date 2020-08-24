@@ -1,3 +1,72 @@
-<h2>Profile Page</h2>
+<h2>Profile</h2>
+</br>
 
-sequelize model:create --name inboundFavorite --attributes outboundFavoriteId:integer,totalReturnTravelTime:string,returnStops:integer,returnAirline1:string,returnAirlineCode1:string,returnAircraftCode1:string,returnDepartureAirport1:string,returnDepartureTime1:string,returnArrivalAirport1:string,returnArrivalTime1:string,returnTavelTime1:string,returnAirline2:string,returnAirlineCode2:string,returnAircraftCode2:string,returnDepartureAirport2:string,returnDepartureTime2:string,returnArrivalAirport2:string,returnArrivalTime2:string,returnTavelTime2:string,returnAirline3:string,returnAirlineCode3:string,returnAircraftCode3:string,returnDepartureAirport3:string,returnDepartureTime3:string,returnArrivalAirport3:string,returnArrivalTime3:string,returnTavelTime3:string,returnAirline4:string,returnAirlineCode4:string,returnAircraftCode4:string,returnDepartureAirport4:string,returnDepartureTime4:string,returnArrivalAirport4:string,returnArrivalTime4:string,returnTavelTime4:string,returnAirline5:string,returnAirlineCode5:string,returnAircraftCode5:string,returnDepartureAirport5:string,returnDepartureTime5:string,returnArrivalAirport5:string,returnArrivalTime5:string,returnTavelTime5:string,
+<div class="userProfile">
+    <h4> First Name: <span class="profile"><%= user.firstName %> </span></h4>
+    <h4> Last Name: <span class="profile"><%= user.lastName %> </span></h4>
+    <h4> Contact No: <span class="profile"><%= user.countryCode %>-(<%= user.contactNo.slice(0,3) %>) <%= user.contactNo.slice(3,6) %>-<%= user.contactNo.slice(6) %>  </span></h4>
+    <h4> Email: <span class="profile"><%= user.email %> </span></h4>
+    <h4>Password: <span class="profile">************</span></h4>
+    <button id="changePasswordBtn" onclick="displayChangePassword()">Change Password</button>
+
+    <form action="/profile/changePassword/?_method=PUT" method="POST">
+        <div class="changePassword">
+            <!-- <input type="hidden" name="userId" value="<%=// user.id %> "> -->
+            <div>
+                <label for="currentPassword">Current Password: </label>
+            </div>
+            <div>
+                <input type="password" name="currentPassword" value="">
+            </div>
+            <div>
+                <label for="newPassword">New Password: </label>
+            </div>
+            <div>
+                <input type="password" name="newPassword" value="">
+            </div>
+            <div>
+                <label for="confirmNewPassword">Confirm New Password: </label>
+            </div>
+            <div>
+                <input type="password" name="confirmNewPassword" value="">
+            </div>
+            <div></div>
+            <div>
+                <button type="submit">Confirm</button>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+
+<script>
+    //document.getElementById('changePasswordBtn').onclick = displayChangePassword;
+
+    function displayChangePassword() {
+        let changePasswordDiv = document.querySelector('.changePassword')
+        if(changePasswordDiv.style.display === 'none') {
+            changePasswordDiv.style = 'display:grid';
+        } else {
+            changePasswordDiv.style = 'display:none';
+        }
+    }
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- sequelize model:create --name inboundFavorite --attributes outboundFavoriteId:integer,totalReturnTravelTime:string,returnStops:integer,returnAirline1:string,returnAirlineCode1:string,returnAircraftCode1:string,returnDepartureAirport1:string,returnDepartureTime1:string,returnArrivalAirport1:string,returnArrivalTime1:string,returnTavelTime1:string,returnAirline2:string,returnAirlineCode2:string,returnAircraftCode2:string,returnDepartureAirport2:string,returnDepartureTime2:string,returnArrivalAirport2:string,returnArrivalTime2:string,returnTavelTime2:string,returnAirline3:string,returnAirlineCode3:string,returnAircraftCode3:string,returnDepartureAirport3:string,returnDepartureTime3:string,returnArrivalAirport3:string,returnArrivalTime3:string,returnTavelTime3:string,returnAirline4:string,returnAirlineCode4:string,returnAircraftCode4:string,returnDepartureAirport4:string,returnDepartureTime4:string,returnArrivalAirport4:string,returnArrivalTime4:string,returnTavelTime4:string,returnAirline5:string,returnAirlineCode5:string,returnAircraftCode5:string,returnDepartureAirport5:string,returnDepartureTime5:string,returnArrivalAirport5:string,returnArrivalTime5:string,returnTavelTime5:string, -->

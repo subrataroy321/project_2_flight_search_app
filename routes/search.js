@@ -5,7 +5,7 @@ const AIR_LAB_API_KEY = process.env.AIR_LAB_API_KEY;
 const API_SECRET = process.env.API_SECRET;
 const axios = require('axios');
 
-
+// route for making search queries
 router.get('/', (req,res)=> {
 
     let url; 
@@ -14,11 +14,10 @@ router.get('/', (req,res)=> {
         
     } else if(req.query.tripType === 'return'){
         url =`https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${req.query.originLocationCode.slice(0,3)}&destinationLocationCode=${req.query.destinationLocationCode.slice(0,3)}&departureDate=${req.query.departureDate}&returnDate=${req.query.returnDate}&adults=${req.query.adults}&children=${req.query.children}&infants=${req.query.infants}&travelClass=${req.query.travelClass}&currencyCode=USD&max=30`
-        
     }
 
     const qs = `grant_type=client_credentials&client_id=${API_KEY}&client_secret=${API_SECRET}`
-    
+
     axios.post(' https://test.api.amadeus.com/v1/security/oauth2/token', qs, {
         headers:  {
             'Content-Type': 'application/x-www-form-urlencoded'
@@ -60,7 +59,6 @@ router.get('/', (req,res)=> {
                 }
             })
 
-    
             Promise.all(all).then(responses=> {
                 responses.forEach(response=> {
                     let airlineName = response.data.response[0].name;
@@ -72,37 +70,25 @@ router.get('/', (req,res)=> {
                 })
                 return airlineNames;
             }).then(airlineNames=> {
-                //console.log(airlineNames)       
-
                 if (req.user) {
                     res.render('search',{resultData: resultData , queryData: req.query, user: req.user, airlineNames: airlineNames});
                 } else {
-                    //res.send(resultData);
                     res.render('search',{resultData: resultData , queryData: req.query, airlineNames: airlineNames});
                 }
             }).catch(error=> {
                 console.log('Error',error);
                 res.redirect('/error');
             })
-            
         })
         .catch(error=> {
             console.log('Error',error);
             res.redirect('/error');
         })
-
     })
     .catch(error=> {
         console.log('Error',error)
         res.redirect('/error');
     })
-
 })
-
-
-router.post('/add', (req,res)=> {
-    
-})
-
 
 module.exports = router;

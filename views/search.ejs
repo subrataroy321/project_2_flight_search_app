@@ -28,7 +28,7 @@
                 <%// console.log(user) %> 
             <% } %> 
 
-            <input type="hidden" name="tripType" value="<%= queryData.tripType %> ">        
+            <input type="hidden" name="tripType" value="<%= queryData.tripType %>">        
             <div class="eachSearchResults">
 
                 <div class="image-price">
@@ -116,7 +116,7 @@
                                             <input type="hidden" name="departureTime" value="<%= segment.departure.at.slice(0,10) %> at <%= segment.departure.at.slice(-8) %>">
                                             <input type="hidden" name="arrivalTime" value="<%= segment.arrival.at.slice(0,10) %> at <%= segment.arrival.at.slice(-8) %>">
                                             <p>Travel Time: <%= segment.duration.slice(2) %> </p>
-                                            <input type="hidden" name="tavelTime"  value="<%= segment.duration.slice(2) %>">
+                                            <input type="hidden" name="travelTime"  value="<%= segment.duration.slice(2) %>">
                                             <%// i++; %> 
                                             </br>
                                         </div>
@@ -131,7 +131,7 @@
             
 
             <% if(queryData.tripType === 'return' ) { %>
-                <div class="eachSearchResults returnResults">
+                <div class="returnResults">
                     <div class="image-price">
                         <div class="imageDiv">
                             
@@ -203,7 +203,7 @@
                                                 <input type="hidden" name="returnDepartureTime" value="<%= segment.departure.at.slice(0,10) %> at <%= segment.departure.at.slice(-8) %>">
                                                 <input type="hidden" name="returnArrivalTime" value="<%= segment.arrival.at.slice(0,10) %> at <%= segment.arrival.at.slice(-8) %>">
                                                 <p>Travel Time: <%= segment.duration.slice(2) %> </p>
-                                                <input type="hidden" name="returnTavelTime"  value="<%= segment.duration.slice(2) %>">
+                                                <input type="hidden" name="returnTravelTime"  value="<%= segment.duration.slice(2) %>">
                                                 </br>
                                             </div>
     
