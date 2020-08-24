@@ -1,25 +1,34 @@
 # CHEAP FLIGHT SEARCH
 
+[Deployed Link](https://cheap-flight-search.herokuapp.com/)
+
 This is my project 2 for building a full stack application. 
 
+## ERD:
+
+<img src="./FlightSearch1.png">
 
 ## Node Modules Used for building this application:
 * `chai`
 * `mocha`
 * `supertest`
+* `axios`
 * `bcrypt`
 * `connect-flash`
+* `connect-session-sequelize`
 * `dotenv`
 * `ejs`
 * `express`
 * `express-ejs-layouts`
 * `express-session`
-* `express-sessions`
+* `method-override`
 * `morgan`
 * `passport`
 * `passport-local`
 * `pg`
 * `sequelize`
+* `airport-autocomplete-js`
+* `sequelize-cli`
 
 ## Steps to use in local machine
 
@@ -32,8 +41,11 @@ This is my project 2 for building a full stack application.
 7. Run `sequelize db:migrate` to migrate the model into database. 
 8. Add a .env file with the following fields:
 * SESSION_SECRET: Can be any random string; usually a hash in production
-* API_KEY: get an api key from [amadeus](https://developers.amadeus.com/).
-9. Run server; make sure it works
+* API_KEY: get an api key from [amadeus](https://developers.amadeus.com/)
+* API_SECRET: get an api secret from [amadeus](https://developers.amadeus.com/)
+* AIR_LAB_API_KEY: get an api key from [airlabs](http://airlabs.co/#/get_started)
+* EMAILJS_USER_ID: get an user id from [EmailJs](https://www.emailjs.com/docs/)
+9. Run server using following commands.
 `nodemon`
 or
 `node index.js`
