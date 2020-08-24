@@ -1,6 +1,6 @@
 # CHEAP FLIGHT SEARCH
 
-[Deployed Link](https://cheap-flight-search.herokuapp.com/)
+[Access Cheap Flight Search Here](https://cheap-flight-search.herokuapp.com/)
 
 This is my project 2 for building a full stack application. 
 
