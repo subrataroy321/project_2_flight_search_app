@@ -49,10 +49,10 @@ app.use((req,res,next)=> {
   next();
 });
 
-// route to render error page globally
-app.get('*', (req, res) => {
-  res.render('error')
-})
+// // route to render error page globally
+// app.get('*', (req, res) => {
+//   res.render('error')
+// })
 
 // get route for index page
 app.get('/', (req, res) => {    

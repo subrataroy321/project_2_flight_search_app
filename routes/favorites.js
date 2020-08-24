@@ -34,6 +34,7 @@ router.post('/:id/add', (req,res)=> {
         let departureTime = req.body.departureTime;
         let arrivalTime = req.body.arrivalTime;
         let travelTime = req.body.travelTime;
+        console.log(departureAirport)
 
         let returnAirline = req.body.returnAirline;
         let returnAirlineCode = req.body.returnAirlineCode;
