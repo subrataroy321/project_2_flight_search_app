@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      models.inboundFavorite.belongsTo(models.outboundFavorite)
+      models.inboundFavorite.belongsTo(models.outboundFavorite, {onDelete: "CASCADE"})
       //models.inboundFavorite.belongsToMany(models.user, {through: "userInboundFavorite"});
     }
   };
