@@ -10,7 +10,6 @@
 <% } %>
 
 
-<% console.log(favoritesData) %> 
 <div class="searchResults">
     <% favoritesData.forEach((result,index) => { %>
         
@@ -45,7 +44,7 @@
                             <% arrivalTime = result.arrivalTime1 %> 
                         <% } %> 
 
-
+                        <p style="font-size:15px;color:rgb(228, 71, 8)">Outbound</p>
                         <p style="font-size:17px;"><%= result.departureAirport1 %> ⟶ <%=arrivalAirport %> </p>
                         </br>
                         <p>Departure: <%= result.departureTime1 %></p>
@@ -131,7 +130,7 @@
                                 <% returnArrivalTime = result.inboundFavorite.returnArrivalTime1 %> 
                             <% } %> 
 
-
+                            <p style="font-size:15px;color:rgb(228, 71, 8)">Inbound</p>
                             <p style="font-size:17px;"><%= result.inboundFavorite.returnDepartureAirport1 %> ⟶ <%=returnArrivalAirport %> </p>
                             </br>
                             <p>Departure: <%= result.inboundFavorite.returnDepartureTime1 %></p>
