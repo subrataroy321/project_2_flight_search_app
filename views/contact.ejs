@@ -1,30 +1,30 @@
 <h3>Contact us</h3>
 </br>
 <!-- <form id="contact-form" action="/contact/send" method="post"> -->
-<form action="/contact/send" method="post"></form>
+<form id="contact-form">
     <div class="contact">
             <input type="hidden" name="contact_number">
             <div>
                 <label>Name</label>
             </div>
             <div>
-                <input type="text" name="user_name" required>
+                <input type="text" name="user_name" style="width: 350px" required>
             </div>
             <div>
-                <label>Email</label>
+                <label>Email: </label>
             </div>
             <div>
-                <input type="email" name="user_email" required>
+                <input type="email" name="user_email" style="width: 350px" required>
             </div>
             <div>
-                <label>Message</label>
+                <label>Message: </label>
             </div>
             <div>
-                <textarea name="message"></textarea required>
+                <textarea name="message" style="height:200px; width: 350px"></textarea required>
             </div>
             <div></div>
             <div>
-                <button type="submit">Send</button>
+                <input type="submit" value="Send">
                 
             </div>
     </div>

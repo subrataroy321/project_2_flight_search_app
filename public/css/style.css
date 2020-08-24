@@ -131,11 +131,16 @@ input[type='radio'] {
 }
 
 .contact{
+  color: rgb(21, 21, 118);
+  background-color: #9cecd0;
+  border: 5px double white;
+  border-radius: 15px;
+  padding: 50px;
   margin: 0 auto;
-  width: 400px;
+  width: 600px;
   text-align: center;
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-rows: 70px 70px 1fr;
   grid-template-columns: .7fr 3fr;
 }
 

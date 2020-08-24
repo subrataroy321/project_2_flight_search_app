@@ -71,15 +71,13 @@ app.get('/profile', isLoggedIn, (req, res) => {
 // put route for updating password 
 // Problem: password is not hashing before storing into database
 app.put('/profile/changePassword', isLoggedIn, (req,res)=> {
-  // db.user.findOne({
-  //   where: {id: req.user.id}
-  // })
-  // .then(user=> {
+  db.user.findOne({
+    where: {id: req.user.id}
+  })
+  .then(user=> {
     if(req.user.validPassword(req.body.currentPassword)) {
       if(req.body.newPassword === req.body.confirmNewPassword) {
-        db.user.update({password: req.body.newPassword}, { where: {
-          id: req.user.id
-        }})
+        user.update({password: req.body.newPassword})
         .then(user => {
           req.flash('success','Password Updated')
           res.redirect('/profile');
@@ -92,7 +90,7 @@ app.put('/profile/changePassword', isLoggedIn, (req,res)=> {
       req.flash('error','Current Password invalid')
       res.redirect('/profile');
     }
-  //})
+  })
 })
 
 // get route for contact page
@@ -101,21 +99,23 @@ app.get('/contact', (req, res) => {
 });
 
 // post route for sending contact us info
-app.post('/contact/send', (req,res)=> {
-  console.log(`contactform`)
-  axios.post('https://api.emailjs.com/api/v1.0/email/send-form',{
-    data: {
-      service_id: 'gmail',
-      template_id: 'template_2NY7o97Q',
-      user_id: EMAILJS_USER_ID
-    }
-  }).then(()=> {
-    req.flash('success','Message Sent');
-  }).catch(error=> {
-    req.flash('error','Opps... Something went wrong. try again.');
-    res.redirect('/contact');
-  })
-})
+
+// app.post('/contact/send', (req,res)=> {
+//   console.log(`contactform`)
+//   axios.post('https://api.emailjs.com/api/v1.0/email/send-form',{
+//     data: {
+//       service_id: 'gmail',
+//       template_id: 'template_2NY7o97Q',
+//       user_id: EMAILJS_USER_ID
+//     }
+//   }).then(()=> {
+//     req.flash('success','Message Sent');
+//     res.redirect('/contact');
+//   }).catch(error=> {
+//     req.flash('error','Opps... Something went wrong. try again.');
+//     res.redirect('/contact');
+//   })
+// })
 
 // get route for error page
 app.get('/error', (req, res) => {
