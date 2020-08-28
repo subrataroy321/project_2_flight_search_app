@@ -49,10 +49,7 @@ app.use((req,res,next)=> {
   next();
 });
 
-// // route to render error page globally
-// app.get('*', (req, res) => {
-//   res.render('error')
-// })
+
 
 // get route for index page
 app.get('/', (req, res) => {    
@@ -127,9 +124,15 @@ app.get('/error', (req, res) => {
   res.render('error');
 });
 
+
 app.use('/auth', require('./routes/auth'));
 app.use('/search', require('./routes/search'));
 app.use('/favorites',isLoggedIn, require('./routes/favorites'));
+
+// route to render error page globally
+app.get('*', (req, res) => {
+  res.render('error')
+})
 
 const port = process.env.PORT || 3000;
 const server = app.listen(port, () => {

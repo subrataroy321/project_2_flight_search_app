@@ -102,9 +102,9 @@ router.post('/:id/add', (req,res)=> {
                     console.log('Error',error);
                     res.redirect('/error');
                 })
-            } else if (!req.body.departureAirport.length){
+            } else {
                 // departure information is not an array
-                console.log(req.body)
+                //console.log(req.body)
                 user.createOutboundFavorite({ // create into outboundFavorite model
                     userId: user.dataValues.id,
                     tripType: req.body.tripType,
