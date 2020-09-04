@@ -18,13 +18,13 @@
                 event.preventDefault();
                 // generate the contact number value
                 this.contact_number.value = Math.random() * 100000 | 0;
-                emailjs.sendForm('gmail', 'contact_form', this);
+                emailjs.sendForm('gmail', 'template_2NY7o97Q', this);
             });
         }
     </script>
   </head>
   <body>
-
+    
     <%- include('partials/nav')  %> 
     <%- include('partials/alerts')  %> 
     <%- body %>

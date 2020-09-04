@@ -1,31 +1,51 @@
 <h3>Contact us</h3>
 </br>
-<!-- <form id="contact-form" action="/contact/send" method="post"> -->
-<form id="contact-form">
+
+<form id="contact-form" onsubmit="setTimeout(checkStatus,1000)">
     <div class="contact">
             <input type="hidden" name="contact_number">
             <div>
                 <label>Name</label>
             </div>
             <div>
-                <input type="text" name="user_name" style="width: 350px" required>
+                <input type="text" name="user_name" style="width: 350px" placeholder="first and last name" required>
             </div>
             <div>
                 <label>Email: </label>
             </div>
             <div>
-                <input type="email" name="user_email" style="width: 350px" required>
+                <input type="email" name="user_email" style="width: 350px" placeholder="email@email.com" required>
             </div>
             <div>
                 <label>Message: </label>
             </div>
             <div>
-                <textarea name="message" style="height:200px; width: 350px"></textarea required>
+                <textarea name="message" style="height:200px; width: 350px" placeholder="enter a brief message"></textarea required>
             </div>
             <div></div>
             <div>
-                <input type="submit" value="Send">
-                
-            </div>
+                <input type="submit" value="Send" >
+            </br>
+            <div id="showStatus"></div>
+            
+        </div>
     </div>
 </form>
+
+<script>
+
+function checkStatus() {
+    let contactForm = document.getElementById("contact-form")
+    if (contactForm.classList.contains("emailjs-success")) {
+        console.log('🍑')
+        document.getElementById(showStatus).innerHTML = 'Message Successfully Sent'
+        contactForm.reset()
+    } else {
+        console.log('🍑')
+        document.getElementById(showStatus).innerHTML = 'Something went wrong. Reload the page and try again'
+    }
+    
+}
+
+
+</script>

@@ -100,17 +100,24 @@ app.get('/contact', (req, res) => {
   res.render('contact');
 });
 
-// post route for sending contact us info
-
-// app.post('/contact/send', (req,res)=> {
+//post route for sending contact us info
+// app.get('/contact/send', (req,res)=> {
+//   var data = {
+//     service_id: 'gmail',
+//     template_id: 'template_2NY7o97Q',
+//     user_id: 'user_d1b0344EQ1e6Vu6Kkyn4D',
+//     template_params: {
+//         'user_name': req.body.user_name,
+//         'user_email': req.body.user_email,
+//         'message': req.body.message
+//     }
+//   };
 //   console.log(`contactform`)
 //   axios.post('https://api.emailjs.com/api/v1.0/email/send-form',{
-//     data: {
-//       service_id: 'gmail',
-//       template_id: 'template_2NY7o97Q',
-//       user_id: EMAILJS_USER_ID
-//     }
-//   }).then(()=> {
+//     data: JSON.stringify(data),
+//     contentType: 'application/json'
+// }).then((res)=> {
+//     console.log(res)
 //     req.flash('success','Message Sent');
 //     res.redirect('/contact');
 //   }).catch(error=> {

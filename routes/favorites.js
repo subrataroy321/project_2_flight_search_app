@@ -48,7 +48,7 @@ router.post('/:id/add', (req,res)=> {
         
         if(req.body.tripType === 'oneway') { 
 
-            if(req.body.departureAirport.length) { // makes sure that departure information is in an array
+            if(Array.isArray(req.body.departureAirport)) { // makes sure that departure information is in an array
                 user.createOutboundFavorite({ // create into outboundFavorite model
                     userId: user.dataValues.id,
                     tripType: req.body.tripType,
@@ -130,7 +130,7 @@ router.post('/:id/add', (req,res)=> {
         } else if(req.body.tripType === 'return') {
 
             // create outbound favorite with inbound favorite 
-            if(req.body.departureAirport.length) { // makes sure that departure information is in an array
+            if(Array.isArray(req.body.departureAirport) ){ // makes sure that departure information is in an array
                 user.createOutboundFavorite({ // create into outboundFavorite model
                     userId: user.dataValues.id,
                     tripType: req.body.tripType,
@@ -241,7 +241,7 @@ router.post('/:id/add', (req,res)=> {
                     console.log('Error',error);
                     res.redirect('/error');
                 })
-            } else if(req.body.departureAirport.length == 0) {
+            } else {
                 user.createOutboundFavorite({ // create into outboundFavorite model
                     userId: user.dataValues.id,
                     tripType: req.body.tripType,
