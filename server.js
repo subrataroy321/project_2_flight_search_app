@@ -141,7 +141,7 @@ app.get('*', (req, res) => {
   res.render('error')
 })
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 const server = app.listen(port, () => {
   console.log(`🎧 You're listening to the smooth sounds of port ${port} 🎧`);
 });
